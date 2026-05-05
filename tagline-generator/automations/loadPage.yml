@@ -1,0 +1,8 @@
+slug: loadPage
+name: loadPage
+description: Page init — exposes the latest taglines from session so the result block can render them.
+when:
+  endpoint: true
+do: []
+output:
+  taglines: '{{session.taglines}}'

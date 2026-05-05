@@ -1,0 +1,19 @@
+name: Tagline Generator
+slug: tagline-generator-template
+description: >-
+  Starter template showing how to call an LLM from a Prisme.ai workspace using the
+  reusable LLM App. Type a product description, get three punchy taglines back.
+labels:
+  - template
+config:
+  schema:
+    apiKey:
+      type: string
+      title: LLM Gateway API key
+      description: >-
+        Paste the key in the LLM App's instance config (Imports panel),
+        not here. This field is for reference only.
+      ui:widget: password
+  value: {}
+customDomains: []
+repositories: {}

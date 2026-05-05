@@ -1,0 +1,40 @@
+slug: index
+name: Tagline Generator
+description: Type a product description, get three taglines back.
+automation: loadPage
+updateOn: taglinesReady
+blocks:
+  - slug: RichText
+    css: ':block { padding: 24px 24px 0; max-width: 720px; margin: 0 auto; }'
+    content: |-
+      # Tagline Generator
+
+      Describe a product in one line. The LLM App returns three taglines.
+  - slug: Form
+    css: ':block { padding: 0 24px; max-width: 720px; margin: 0 auto; }'
+    schema:
+      type: object
+      required:
+        - description
+      properties:
+        description:
+          type: string
+          title: Product description
+          ui:widget: textarea
+    submitLabel: Generate
+    disableSubmitDelay: 4000
+    onSubmit: generate
+  - slug: RichText
+    css: |-
+      :block {
+        padding: 16px 24px;
+        max-width: 720px;
+        margin: 16px auto;
+        background: #f6f8fa;
+        border-radius: 8px;
+        white-space: pre-wrap;
+        font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+        min-height: 80px;
+      }
+    content: '{{taglines}}'
+colorScheme: auto

@@ -1,0 +1,19 @@
+name: Travel Buddy
+slug: travel-buddy-template
+description: >-
+  Starter template showing how to drive an agent from a Prisme.ai workspace using the
+  reusable Agent Factory App. One automation creates the agent, another sends messages.
+labels:
+  - template
+config:
+  schema:
+    agentId:
+      type: string
+      title: Travel Buddy agent ID
+      description: >-
+        After running setupAgent once, paste the returned agent ID here so the
+        chat page knows which agent to talk to.
+  value:
+    agentId: ''
+customDomains: []
+repositories: {}

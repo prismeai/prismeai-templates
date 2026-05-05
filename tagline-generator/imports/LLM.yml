@@ -1,0 +1,4 @@
+appSlug: LLM
+slug: LLM
+config:
+  apiKey: ''

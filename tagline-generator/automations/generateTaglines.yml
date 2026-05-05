@@ -1,0 +1,33 @@
+slug: generateTaglines
+name: generateTaglines
+description: Listens for the page's "generate" event, calls the LLM App for three taglines, saves the result in session, and emits "taglinesReady" so the page refreshes.
+arguments:
+  payload:
+    type: object
+    properties:
+      description:
+        type: string
+when:
+  events:
+    - generate
+do:
+  - LLM.chatCompletion:
+      messages:
+        - role: system
+          content: |-
+            You are a senior copywriter. Given a product description, return
+            exactly three taglines. Each tagline on its own line, numbered
+            "1.", "2.", "3.". No preamble, no explanation. Each tagline is at
+            most ten words, punchy and memorable. Avoid buzzwords like
+            "innovative", "cutting-edge", "next-generation".
+        - role: user
+          content: '{{payload.description}}'
+      temperature: 0.9
+      max_tokens: 200
+      output: completion
+  - set:
+      name: session.taglines
+      value: '{{completion.choices[0].message.content}}'
+  - emit:
+      event: taglinesReady
+output: ok

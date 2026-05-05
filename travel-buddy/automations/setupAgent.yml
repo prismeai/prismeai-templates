@@ -1,0 +1,22 @@
+slug: setupAgent
+name: setupAgent
+description: One-time setup. Creates the Travel Buddy agent in Agent Factory and returns its ID. Paste the returned ID into the workspace config field "agentId", then the chat page will start working.
+when:
+  endpoint: true
+do:
+  - Agents.createAgent:
+      name: Travel Buddy
+      model: gpt-5-chat-latest
+      instructions: |-
+        You are Travel Buddy, a friendly travel companion. The user shares a
+        destination, a vibe, or a vague dream. You reply with a short, useful
+        suggestion: a 2-3 day mini itinerary, a hidden-gem neighborhood, or a
+        local dish to chase. Keep answers under 150 words. Use plain, warm
+        language. Never invent prices, opening hours, or visa rules — if the
+        user asks, tell them to verify with an official source.
+      temperature: 0.7
+      output: agent
+output:
+  agentId: '{{agent.id}}'
+  agent: '{{agent}}'
+  message: Agent created. Copy the agentId value into the workspace config field "agentId".
