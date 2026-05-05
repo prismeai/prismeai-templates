@@ -18,26 +18,12 @@ If you're unsure, start with the LLM App. If you find yourself rebuilding memory
 
 ## How to import a template
 
-1. Open https://studio.prisme.ai (or your own instance).
-2. **Workspaces → Import** → pick the template's folder zipped, or drop it in via the CLI / API.
+1. **Zip the template folder.** Pick exactly one template directory (e.g. `tagline-generator/`) and create a `.zip` of its contents. Don't zip the whole repo, and don't include any parent folder — the archive should contain `index.yml`, `automations/`, `pages/`, etc. at its root.
+2. **Import the zip.** You have two options:
+   - **From the UI:** open https://studio.prisme.ai (or your own instance), go to **Workspaces → Import**, and drop the zip in.
+   - **From the API:** `POST` the zip to `/v2/workspaces/import` (see the [Workspaces API reference](https://docs.prisme.ai/api-reference/overview)).
 3. Open the freshly imported workspace in Builder.
-4. Follow the per-template setup note below.
-
-## Per-template setup
-
-### Tagline Generator
-
-1. Get an LLM Gateway API key. On the LLM Gateway workspace (`llm-gateway`): `POST /v2/workspaces/{llmGatewayWorkspaceId}/security/apikeys` with `{"name":"...","rules":[{"action":"execute","subject":"automations"}]}`. Copy the returned `apiKey`.
-2. In your imported workspace: **Imports → LLM → Configure**, paste the key into `apiKey`.
-3. Open the **Tagline Generator** page. Type a one-line product description, hit Generate.
-
-### Travel Buddy
-
-1. Get an Agent Factory API key from any agent in **Agent Creator**: open the agent → **Settings → API Keys → Create**.
-2. In your imported workspace: **Imports → Agents → Configure**, paste the key into `apiKey`.
-3. Run the **`setupAgent`** automation once (Builder → Automations → setupAgent → Play). Copy the returned `agentId`.
-4. **Settings → Workspace config**, paste the `agentId` into the `agentId` field.
-5. Open the **Travel Buddy** page and ask it something.
+4. Follow the setup steps in that template's own README ([`tagline-generator/README.md`](./tagline-generator/README.md), [`travel-buddy/README.md`](./travel-buddy/README.md)). Each one walks through getting the right API key, configuring the client app, and any per-template provisioning.
 
 ## Anatomy of each template
 
