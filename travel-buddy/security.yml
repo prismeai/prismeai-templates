@@ -17,7 +17,6 @@ authorizations:
       action: read
       subject:
         - workspaces
-        - pages
     - role: viewer
       action: read
       subject:
@@ -36,11 +35,6 @@ authorizations:
     - role: editor
       action: manage
       subject: automations
-    - role: editor
-      action:
-        - read
-        - update
-      subject: pages
     - role: editor
       action:
         - read
@@ -83,9 +77,3 @@ authorizations:
         - delete
       subject:
         - files
-    - action: read
-      subject: pages
-      conditions:
-        labels:
-          $in:
-            - public

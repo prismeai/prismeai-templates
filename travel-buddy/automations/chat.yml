@@ -1,33 +1,34 @@
-name: chat
-description: Listens for the page's "ask" event, sends the user's question to the Travel Buddy agent, saves the reply in session, and emits "replyReady" so the page refreshes.
+slug: chat
+name: Chat with Travel Buddy
+description: Sends a question to the Travel Buddy agent and returns its reply. Callable as an endpoint (webhook / Play button / execute_automation). Requires config.agentId to be set — run setupAgent first.
 arguments:
-  payload:
-    type: object
-    properties:
-      question:
-        type: string
+  question:
+    type: string
+    title: Question
+    description: The user's question for Travel Buddy — a destination, a vibe, a vague travel dream.
 when:
-  events:
-    - ask
+  endpoint: true
 do:
   - conditions:
       '!{{config.agentId}}':
         - set:
-            name: session.reply
+            name: reply
+            value: ''
+        - set:
+            name: error
             value: Set the agent ID in workspace config first. Run setupAgent if needed.
-        - emit:
-            event: replyReady
         - break: {}
-  - Agents.sendMessage:
-      agent_id: '{{config.agentId}}'
-      message:
-        parts:
-          - type: text
-            text: '{{payload.question}}'
-      output: response
-  - set:
-      name: session.reply
-      value: '{{response.task.output.messages[0].parts[0].text}}'
-  - emit:
-      event: replyReady
-output: ok
+      default:
+        - Agents.sendMessage:
+            agent_id: '{{config.agentId}}'
+            message:
+              parts:
+                - type: text
+                  text: '{{question}}'
+            output: response
+        - set:
+            name: reply
+            value: '{{response.task.output.messages[0].parts[0].text}}'
+output:
+  reply: '{{reply}}'
+  error: '{{error}}'

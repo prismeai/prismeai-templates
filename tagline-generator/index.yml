@@ -2,7 +2,8 @@ name: Tagline Generator
 slug: tagline-generator-template
 description: >-
   Starter template showing how to call an LLM from a Prisme.ai workspace using the
-  reusable LLM App. Type a product description, get three punchy taglines back.
+  reusable LLM App. One automation in, three taglines out. Call it from the Builder
+  Play button, a webhook, or another workspace.
 labels:
   - template
 config:

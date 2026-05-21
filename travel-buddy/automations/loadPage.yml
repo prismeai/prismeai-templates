@@ -1,9 +1,0 @@
-slug: loadPage
-name: loadPage
-description: Page init — exposes the latest reply from session.
-when:
-  endpoint: true
-do: []
-output:
-  reply: '{{session.reply}}'
-  agentReady: '{{config.agentId}}'

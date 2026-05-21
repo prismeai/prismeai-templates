@@ -1,15 +1,13 @@
 slug: generateTaglines
-name: generateTaglines
-description: Listens for the page's "generate" event, calls the LLM App for three taglines, saves the result in session, and emits "taglinesReady" so the page refreshes.
+name: Generate taglines
+description: Calls the LLM App for three taglines based on a product description. Callable as an endpoint (webhook / Play button / execute_automation).
 arguments:
-  payload:
-    type: object
-    properties:
-      description:
-        type: string
+  description:
+    type: string
+    title: Product description
+    description: A one-line description of the product to advertise. The LLM uses this as the source material for the taglines.
 when:
-  events:
-    - generate
+  endpoint: true
 do:
   - LLM.chatCompletion:
       messages:
@@ -21,13 +19,9 @@ do:
             most ten words, punchy and memorable. Avoid buzzwords like
             "innovative", "cutting-edge", "next-generation".
         - role: user
-          content: '{{payload.description}}'
+          content: '{{description}}'
       temperature: 0.9
       max_tokens: 200
       output: completion
-  - set:
-      name: session.taglines
-      value: '{{completion.choices[0].message.content}}'
-  - emit:
-      event: taglinesReady
-output: ok
+output:
+  taglines: '{{completion.choices[0].message.content}}'

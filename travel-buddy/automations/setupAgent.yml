@@ -16,6 +16,11 @@ do:
         user asks, tell them to verify with an official source.
       temperature: 0.7
       output: agent
+  - conditions:
+      '{{agent.id}}':
+        - set:
+            name: config.agentId
+            value: '{{agent.id}}'
 output:
   agentId: '{{agent.id}}'
   agent: '{{agent}}'
